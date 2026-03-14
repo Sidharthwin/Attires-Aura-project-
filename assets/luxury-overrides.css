@@ -375,30 +375,37 @@ a:hover {
   padding-right: 4rem;
 }
 
+.facet-filters__field {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.5rem !important;
+}
+
 .facet-filters__label {
   font-family: var(--font-luxury-heading) !important;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.facets__summary {
-  font-family: var(--font-luxury-heading) !important;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
   font-size: 1.1rem !important;
-  font-weight: 500 !important;
-  color: var(--luxury-ink);
-}
-
-.facet-checkbox {
-  font-family: var(--font-body-family);
-  font-size: 1.2rem !important;
+  margin: 0 !important;
   color: var(--luxury-ink-soft) !important;
+  white-space: nowrap !important;
 }
 
 .facet-filters__sort {
-  font-family: var(--font-body-family) !important;
-  font-size: 1.2rem !important;
+  font-family: var(--font-luxury-body) !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.05em !important;
+  text-transform: none !important;
+  padding: 0.5rem 2rem 0.5rem 0.5rem !important;
+  border-bottom: 1px solid rgba(168, 130, 47, 0.3) !important;
+  min-height: auto !important;
+  height: auto !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}
+
+.facet-filters__sort:focus {
+  border-bottom-color: var(--luxury-gold) !important;
 }
 
 /* ── LUXURY PRICE STYLING ──────────────────────── */
@@ -564,6 +571,22 @@ a:hover {
 
 .facet-filters.sorting {
   justify-content: flex-end !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.facet-filters__field .select {
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
+}
+
+.facet-filters__field .svg-wrapper {
+  position: absolute !important;
+  right: 0 !important;
+  color: var(--luxury-gold) !important;
+  width: 1.2rem !important;
+  pointer-events: none !important;
 }
 
 .product-count {
