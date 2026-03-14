@@ -483,6 +483,93 @@ a:hover {
   margin-right: auto !important;
 }
 
+/* ── LUXURY CATEGORIZORS STYLE ─────────────────── */
+.luxury-categorizor-wrapper {
+  margin-bottom: 3rem;
+  padding-top: 2rem;
+}
+
+.luxury-categorizor {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--luxury-line);
+  padding-bottom: 2rem;
+}
+
+.categorizor-pill {
+  font-family: var(--font-luxury-body);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--luxury-ink-soft);
+  text-decoration: none;
+  padding: 0.8rem 2.4rem;
+  border: 1px solid rgba(168, 130, 47, 0.15);
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.categorizor-pill:hover,
+.categorizor-pill.active {
+  background: var(--luxury-ink);
+  color: #fff;
+  border-color: var(--luxury-ink);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.categorizor-pill.active {
+  border-color: var(--luxury-gold);
+  box-shadow: 0 0 0 1px var(--luxury-gold);
+}
+
+/* ── HORIZONTAL FACETS REFINEMENT ──────────────── */
+.facets-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.facets__form {
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  align-items: center;
+  width: 100%;
+}
+
+.facets__wrapper {
+  display: flex !important;
+  gap: 3rem !important;
+  justify-content: flex-start !important;
+}
+
+.facets__disclosure {
+  border: 0 !important;
+  margin: 0 !important;
+}
+
+.facets__summary {
+  padding: 1rem 2rem !important;
+  border: 1px solid rgba(168, 130, 47, 0.1) !important;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.facets__summary:hover {
+  border-color: var(--luxury-gold-soft) !important;
+}
+
+.facet-filters.sorting {
+  justify-content: flex-end !important;
+}
+
+.product-count {
+  display: none !important; /* Hide "o products" as requested by implication of "awful" */
+}
+
 @media screen and (max-width: 749px) {
   .grid {
     grid-template-columns: repeat(1, 1fr) !important;

@@ -1,5 +1,15 @@
 {
   "sections": {
+    "marquee": {
+      "type": "luxury-marquee",
+      "settings": {
+        "text": "New Season Arrivals ✦ Hand-Finished Couture ✦ Limited Edition Edit",
+        "bg_color": "#0a0a0a",
+        "text_color": "#C9A84C",
+        "font_size": 18,
+        "letter_spacing": 0.2
+      }
+    },
     "banner": {
       "type": "main-collection-banner",
       "settings": {
@@ -14,12 +24,12 @@
         "products_per_page": 16,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
+        "image_ratio": "portrait",
         "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
+        "show_secondary_image": true,
+        "show_vendor": true,
         "show_rating": false,
-        "quick_add": "none",
+        "quick_add": "standard",
         "enable_filtering": true,
         "filter_type": "horizontal",
         "enable_sorting": true,
@@ -30,6 +40,7 @@
     }
   },
   "order": [
+    "marquee",
     "banner",
     "product-grid"
   ]

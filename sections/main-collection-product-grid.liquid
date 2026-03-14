@@ -100,6 +100,17 @@
     <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}">
       {{ 'component-facets.css' | asset_url | stylesheet_tag }}
       <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+
+      {%- comment -%} LUXURY CATEGORIZOR BAR {%- endcomment -%}
+      <div class="luxury-categorizor-wrapper page-width">
+        <div class="luxury-categorizor">
+          <a href="/collections/all?title=New+Arrivals" class="categorizor-pill active">All New</a>
+          <a href="/collections/all?title=Lehengas" class="categorizor-pill">Lehengas</a>
+          <a href="/collections/all?title=Sarees" class="categorizor-pill">Sarees</a>
+          <a href="/collections/all?title=Couture" class="categorizor-pill">Couture</a>
+          <a href="/collections/all?title=Ready-to-wear" class="categorizor-pill">Ready-to-wear</a>
+        </div>
+      </div>
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
         <aside
           aria-labelledby="verticalTitle"
