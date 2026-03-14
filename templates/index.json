@@ -120,39 +120,14 @@
         "margin_top": 0,
         "margin_bottom": 0
       }
-    },
-    "luxury_new_arrivals": {
-      "type": "luxury-featured-grid",
-      "settings": {
-        "title": "The New Arrivals",
-        "subtitle": "Discover The Latest Treasures",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "show_view_all": true,
-        "view_all_label": "Explore The Edit"
-      }
-    },
-    "women_wear_editorial": {
-      "type": "luxury-editorial",
-      "settings": {
-        "fallback_asset_name": "IMG_4972",
-        "image_first": true,
-        "heading": "The Women Wear Edit",
-        "text": "Exquisite silhouettes and artisanal details crafted for the modern woman who values tradition and grace.",
-        "button_label": "Discover Women Wear",
-        "button_link": "shopify://collections/all",
-        "text_alignment": "left"
-      }
     }
   },
   "order": [
     "16499881859635e985",
     "luxury_marquee_1",
-    "luxury_new_arrivals",
     "signature_collections_g3bBBX",
     "luxury_editorial_1",
     "luxury_gallery_1",
-    "women_wear_editorial",
     "luxury_editorial_2",
     "luxury_editorial_3"
   ]
