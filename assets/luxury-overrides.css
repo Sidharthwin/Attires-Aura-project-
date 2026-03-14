@@ -492,17 +492,18 @@ a:hover {
 
 /* ── LUXURY CATEGORIZORS STYLE ─────────────────── */
 .luxury-categorizor-wrapper {
-  margin-bottom: 3rem;
-  padding-top: 2rem;
+  margin-bottom: 2rem;
+  padding-top: 0;
+  margin-top: -1rem; /* Pull up closer to centered title */
 }
 
 .luxury-categorizor {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1.2rem;
   border-bottom: 1px solid var(--luxury-line);
-  padding-bottom: 2rem;
+  padding-bottom: 1.5rem;
 }
 
 .categorizor-pill {
@@ -794,13 +795,38 @@ a:hover {
 }
 
 .title-wrapper-with-link .title::after,
-.title::after {
+.title::after,
+.collection-hero__title::after {
   content: '';
   display: block;
   width: 4.8rem;
   height: 1px;
   margin-top: 1.2rem;
   background: rgba(168, 130, 47, 0.4);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── COLLECTION BANNER CENTERING ────────────────── */
+.collection-hero__inner {
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+.collection-hero__text-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.collection-hero__title {
+  margin-bottom: 1.5rem !important;
+}
+
+.collection-hero {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .field::before,
