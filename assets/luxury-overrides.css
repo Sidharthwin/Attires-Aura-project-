@@ -423,24 +423,32 @@ a:hover {
 .product-grid {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
-  gap: 4rem 3rem !important;
+  gap: 5rem 3.5rem !important;
   width: 100% !important;
+  margin: 4rem 0 !important;
 }
 
 .product-grid .grid__item {
   width: 100% !important;
   max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+.card-wrapper:hover .card-luxury-overlay {
+  opacity: 1 !important;
 }
 
 @media screen and (max-width: 1199px) {
   .product-grid {
     grid-template-columns: repeat(3, 1fr) !important;
+    gap: 4rem 2.5rem !important;
   }
 }
 
-@media screen and (max-width: 989px) {
+@media screen and (max-width: 899px) {
   .product-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 3rem 2rem !important;
   }
 }
 
