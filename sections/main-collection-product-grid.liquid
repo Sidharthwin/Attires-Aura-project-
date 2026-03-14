@@ -179,7 +179,7 @@
                    <li class="grid__item">
                       <div class="card-wrapper underline-links-hover">
                         <div class="card card--standard card--media" style="--ratio-percent: 130%;">
-                          <div class="card__inner" style="position: relative; display: block;">
+                          <div class="card__inner" style="position: relative; display: block; border-radius: 12px; overflow: hidden; background: #fff;">
                             <div class="card__media" style="width: 100%;">
                               <div class="media media--transparent media--hover-effect" style="padding-bottom: 130%; position: relative; display: block;">
                                 <img src="{{ asset_name | asset_url }}" 
@@ -187,7 +187,7 @@
                                      loading="lazy" 
                                      width="800" 
                                      height="1000"
-                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);">
                               </div>
                             </div>
                             <div class="card-luxury-overlay">
@@ -195,20 +195,20 @@
                                 <a href="#" class="button luxury-btn luxury-btn--small">View Details</a>
                                 <button type="button" class="button luxury-btn luxury-btn--small luxury-btn--outline">Add To Cart</button>
                               </div>
-                              <div class="card-luxury-wishlist-bottom">
+                            </div>
+                            <div class="card-luxury-wishlist-bottom">
                                 <button type="button" class="wishlist-button-minimal">
                                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 </button>
-                              </div>
                             </div>
                           </div>
-                          <div class="card__content" style="padding: 2rem 0;">
+                          <div class="card__content" style="padding: 1.8rem 0.5rem 0.5rem;">
                             <div class="card__information">
-                              <span class="luxury-card-vendor">Attires Aura Exclusive</span>
-                              <h3 class="card__heading h5" style="white-space: normal; overflow: visible;">{{ prod_title }}</h3>
+                              <span class="luxury-card-vendor" style="opacity: 0.7;">Attires Aura Exclusive</span>
+                              <h3 class="card__heading h5" style="white-space: normal; overflow: visible; font-weight: 500; margin-bottom: 0.5rem;">{{ prod_title }}</h3>
                               <div class="price">
                                  <div class="price__regular">
-                                   <span class="price-item price-item--regular">Rs. 89,999.00 INR</span>
+                                   <span class="price-item price-item--regular" style="font-weight: 600; color: #a8822f;">Rs. 89,999.00 INR</span>
                                  </div>
                               </div>
                             </div>
