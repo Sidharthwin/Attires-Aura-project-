@@ -459,6 +459,30 @@ a:hover {
   }
 }
 
+/* ── FALLBACK GRID CENTERING FIX ────────────────── */
+.hide-empty-message .facets-vertical aside.facets-wrapper {
+  display: none !important;
+}
+
+.hide-empty-message .product-grid-container {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.hide-empty-message .fallback-grid-container {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  padding: 0 var(--page-width-margin) !important;
+}
+
+.hide-empty-message .product-grid {
+  width: 100% !important;
+  max-width: var(--page-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 @media screen and (max-width: 749px) {
   .grid {
     grid-template-columns: repeat(1, 1fr) !important;
