@@ -127,7 +127,21 @@
         {%- if collection.products.size == 0 -%}
           <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
             <div class="loading-overlay gradient"></div>
-            <div class="title-wrapper center">
+            
+            <script>
+               /* Determine if we should show the photographic fallback */
+               const params = new URLSearchParams(window.location.search);
+               if (params.get('title')) {
+                  document.documentElement.classList.add('hide-empty-message');
+               }
+            </script>
+            <style>
+               .hide-empty-message .title-wrapper.empty-state-msg { display: none !important; }
+               .fallback-grid-container { display: none; }
+               .hide-empty-message .fallback-grid-container { display: block !important; }
+            </style>
+
+            <div class="title-wrapper center empty-state-msg">
               <h2 class="title title--primary">
                 {{ 'sections.collection_template.empty' | t -}}
                 <br>
@@ -136,6 +150,69 @@
                   | t: link: collection.url, class: 'underlined-link link'
                 }}
               </h2>
+            </div>
+
+            {%- comment -%} LUXURY PHOTOGRAPHIC FALLBACK FOR ZERO-PRODUCT STATE {%- endcomment -%}
+            <div class="fallback-grid-container" style="margin-top: 4rem;">
+               <ul class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop">
+                 {%- for i in (1..8) -%}
+                   {%- liquid
+                     assign image_index = forloop.index | modulo: 5
+                     if image_index == 0
+                       assign image_index = 5
+                     endif
+                     assign asset_name = 'arrival_' | append: image_index | append: '.jpg'
+                     
+                     case image_index
+                       when 1
+                         assign prod_title = "Embroidered Sun-Drenched Lehenga"
+                       when 2
+                         assign prod_title = "Fuchsia Royale Heritage Saree"
+                       when 3
+                         assign prod_title = "Gilded Couture Peplum Set"
+                       when 4
+                         assign prod_title = "Ivory Serenity Bridal Couture"
+                       when 5
+                         assign prod_title = "Celestial Pearl Bridal Ensemble"
+                     endcase
+                   -%}
+                   <li class="grid__item">
+                      <div class="card-wrapper underline-links-hover">
+                        <div class="card card--standard card--media" style="--ratio-percent: 125%;">
+                          <div class="card__inner">
+                            <div class="card__media">
+                              <div class="media media--transparent media--hover-effect">
+                                <img src="{{ asset_name | asset_url }}" alt="{{ prod_title }}" loading="lazy" width="800" height="1000">
+                              </div>
+                            </div>
+                            <div class="card-luxury-overlay">
+                              <div class="card-luxury-actions">
+                                <a href="#" class="button luxury-btn luxury-btn--small">View Details</a>
+                                <button type="button" class="button luxury-btn luxury-btn--small luxury-btn--outline">Add To Cart</button>
+                              </div>
+                              <div class="card-luxury-wishlist-bottom">
+                                <button type="button" class="wishlist-button-minimal">
+                                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card__content">
+                            <div class="card__information">
+                              <span class="luxury-card-vendor">Attires Aura Exclusive</span>
+                              <h3 class="card__heading h5">{{ prod_title }}</h3>
+                              <div class="price">
+                                 <div class="price__regular">
+                                   <span class="price-item price-item--regular">Rs. 89,999.00 INR</span>
+                                 </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   </li>
+                 {%- endfor -%}
+               </ul>
             </div>
           </div>
         {%- else -%}

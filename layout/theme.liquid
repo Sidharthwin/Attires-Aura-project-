@@ -306,6 +306,38 @@
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
       }
+
+      /* Global Dynamic Title Switcher Logic */
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const title = urlParams.get('title');
+        if (title) {
+          // Find the main banner heading and update it
+          const headings = document.querySelectorAll('.collection-hero__title, .main-page-title, h1');
+          headings.forEach(h => {
+             // Check if it's a generic title before replacing
+             const text = h.innerText.toLowerCase();
+             if (text.includes('products') || text.includes('catalog') || text.trim() === '' || text === 'all') {
+               h.innerText = title;
+               h.setAttribute('data-dynamic-title', 'true');
+             }
+          });
+
+          // Also update breadcrumbs
+          const breadcrumbs = document.querySelectorAll('.breadcrumb__link, [aria-label="breadcrumbs"] a, .breadcrumbs span');
+          breadcrumbs.forEach(b => {
+            if (b.innerText.toLowerCase().includes('products') || b.innerText.toLowerCase().includes('catalog')) {
+              b.innerText = title;
+            }
+          });
+          
+          // Update browser tab title
+          const currentTabTitle = document.title;
+          if (!currentTabTitle.includes(title)) {
+             document.title = `${title} – ${currentTabTitle.split('–')[1] || ''}`;
+          }
+        }
+      });
     </script>
   </head>
 
