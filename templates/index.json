@@ -1,0 +1,118 @@
+{
+  "sections": {
+    "16499881859635e985": {
+      "type": "luxury-hero",
+      "settings": {
+        "image": "",
+        "fallback_asset_name": "IMG_4976",
+        "heading": "Timeless Luxury",
+        "subtext": "Crafted For The Modern Maharani",
+        "button_text": "Explore Collection",
+        "button_link": "",
+        "instagram_embed": ""
+      }
+    },
+    "luxury_editorial_1": {
+      "type": "luxury-editorial",
+      "settings": {
+        "fallback_asset_name": "IMG_4976",
+        "image_first": true,
+        "heading": "The Heritage Collection",
+        "text": "A celebration of vibrant hues, modern silhouettes, and timeless elegance designed for the quintessential woman.",
+        "button_label": "Discover Collection",
+        "button_link": "shopify://collections/all",
+        "text_alignment": "left"
+      }
+    },
+    "luxury_gallery_1": {
+      "type": "luxury-gallery",
+      "blocks": {
+        "image_1": {
+          "type": "image",
+          "settings": {
+            "fallback_asset_name": "IMG_4978"
+          }
+        },
+        "image_2": {
+          "type": "image",
+          "settings": {
+            "fallback_asset_name": "IMG_4973"
+          }
+        },
+        "image_3": {
+          "type": "image",
+          "settings": {
+            "fallback_asset_name": "IMG_4974"
+          }
+        }
+      },
+      "block_order": [
+        "image_1",
+        "image_2",
+        "image_3"
+      ],
+      "settings": {
+        "heading": "The Floral Muse"
+      }
+    },
+    "luxury_editorial_2": {
+      "type": "luxury-editorial",
+      "settings": {
+        "fallback_asset_name": "IMG_4972",
+        "image_first": false,
+        "heading": "The Artisan Craft",
+        "text": "Meticulous details and hand-woven fabrics that narrate stories of royalty and grandeur.",
+        "button_label": "View Details",
+        "button_link": "shopify://collections/all",
+        "text_alignment": "left"
+      }
+    },
+    "luxury_editorial_3": {
+      "type": "luxury-editorial",
+      "settings": {
+        "fallback_asset_name": "beige_model_4",
+        "image_first": true,
+        "heading": "Modern Elegance",
+        "text": "Redefining occasion wear with contemporary cuts, opulent embellishments, and a soft beige palette.",
+        "button_label": "Shop The Look",
+        "button_link": "shopify://collections/all",
+        "text_alignment": "left"
+      }
+    },
+    "signature_collections_g3bBBX": {
+      "type": "signature-collections",
+      "blocks": {
+        "collection_card_RiAtQc": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Modern",
+            "collection": "",
+            "fallback_asset_name": "beige_model_2"
+          }
+        },
+        "collection_card_KEH9DW": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Bridal Couture",
+            "collection": "",
+            "fallback_asset_name": "beige_model_3"
+          }
+        }
+      },
+      "block_order": [
+        "collection_card_RiAtQc",
+        "collection_card_KEH9DW"
+      ],
+      "name": "Signature Collections",
+      "settings": {}
+    }
+  },
+  "order": [
+    "16499881859635e985",
+    "signature_collections_g3bBBX",
+    "luxury_editorial_1",
+    "luxury_gallery_1",
+    "luxury_editorial_2",
+    "luxury_editorial_3"
+  ]
+}

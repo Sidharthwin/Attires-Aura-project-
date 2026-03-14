@@ -1,0 +1,139 @@
+<style>
+  .luxury-editorial {
+    padding: 8rem 0;
+    background-color: rgb(var(--color-background));
+  }
+  .luxury-editorial__grid {
+    display: flex;
+    align-items: center;
+    gap: 6rem;
+    flex-wrap: wrap;
+  }
+  .luxury-editorial__image-col {
+    flex: 1 1 50%;
+    min-width: 300px;
+    position: relative;
+  }
+  .luxury-editorial__image-col img {
+    width: 100%;
+    height: auto;
+    object-cover: cover;
+    display: block;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+  .luxury-editorial__text-col {
+    flex: 1 1 40%;
+    min-width: 300px;
+    padding: 2rem;
+    text-align: {{ section.settings.text_alignment }};
+  }
+  .luxury-editorial__text-col h2 {
+    font-family: var(--font-luxury-heading) !important;
+    font-size: clamp(3rem, 5vw, 5rem);
+    color: var(--gold);
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+  .luxury-editorial__text-col p {
+    font-family: var(--font-luxury-body) !important;
+    font-size: 1.2rem;
+    color: rgba(var(--color-foreground), 0.8);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    letter-spacing: 0.05em;
+  }
+  @media screen and (max-width: 749px) {
+    .luxury-editorial { padding: 4rem 0; }
+    .luxury-editorial__grid { gap: 3rem; }
+    .luxury-editorial__text-col { text-align: center; }
+  }
+</style>
+
+<div class="luxury-editorial page-width">
+  <div class="luxury-editorial__grid" {% if section.settings.image_first == false %}style="flex-direction: row-reverse;"{% endif %}>
+    <div class="luxury-editorial__image-col scroll-trigger animate--slide-in">
+      {%- assign fallback_img = section.settings.fallback_asset_name | append: '.jpg' -%}
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 50vw, 100vw' }}
+      {%- else -%}
+        <img src="{{ fallback_img | asset_url }}" alt="{{ section.settings.heading }}" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="luxury-editorial__text-col scroll-trigger animate--fade-in">
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.text }}</p>
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: '#' }}" class="button button--primary luxury-btn">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Luxury Editorial",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (Overrides Default)"
+    },
+    {
+      "type": "text",
+      "id": "fallback_asset_name",
+      "label": "Default Asset Name (no extension)",
+      "default": "IMG_4976"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_first",
+      "label": "Image on left",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Heritage Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "A celebration of vibrant hues, modern silhouettes, and timeless elegance designed for the quintessential woman."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Discover Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxury Editorial"
+    }
+  ]
+}
+{% endschema %}

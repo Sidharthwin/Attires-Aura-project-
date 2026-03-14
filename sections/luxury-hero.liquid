@@ -1,0 +1,224 @@
+{%- style -%}
+  .luxury-hero-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: 90vh; /* 90% of screen height */
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: -85px; /* Pull up underneath the transparent header */
+    background-color: #000;
+  }
+
+  /* The actual background image fallback */
+  .luxury-hero-{{ section.id }}__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    /* Subtle slow zoom animation for "alive" feel */
+    animation: luxuryHeroZoom 20s ease-out forwards;
+  }
+
+  /* 
+   * Instagram Video Wrapper
+   * Forces the instagram iframe to cover the background and scale UP
+   * to hide borders and UI, creating the "zoomed in face" effect the user wanted.
+   */
+  .luxury-hero-video-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250vw; /* Massively scale up width */
+    height: 250vw; /* Keep 1:1 aspect ratio on the wrapper for Instagram */
+    min-width: 250vh;
+    min-height: 250vh;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Make clicking pass through to the button */
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  /* Target the blockquote and iframe injected by Instagram */
+  .luxury-hero-video-wrapper blockquote,
+  .luxury-hero-video-wrapper iframe {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    min-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    /* Move up slightly to focus on face/top half of reel */
+    transform: translateY(-20%); 
+  }
+
+  @keyframes luxuryHeroZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+  }
+
+  /* Overlay to make gold text pop */
+  .luxury-hero-{{ section.id }}__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.6) 0%,
+      rgba(0,0,0,0.5) 50%,
+      rgba(0,0,0,0.7) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Content Box */
+  .luxury-hero-{{ section.id }} .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 2rem;
+    color: #fff;
+    /* Entrance animation */
+    animation: luxuryHeroFadeUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  @keyframes luxuryHeroFadeUp {
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .luxury-hero-{{ section.id }} h1 {
+    font-family: var(--font-luxury-heading) !important;
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    text-shadow: 0 4px 40px rgba(0,0,0,1);
+    /* Solid gold text for maximum readability */
+    color: var(--gold) !important;
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+  }
+
+  .luxury-hero-{{ section.id }} p {
+    font-family: var(--font-luxury-body) !important;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #ffffff !important;
+    margin-bottom: 3rem;
+    text-shadow: 0 2px 20px rgba(0,0,0,1);
+  }
+{%- endstyle -%}
+
+<section class="luxury-hero-{{ section.id }}">
+  
+  {%- if section.settings.instagram_embed != blank -%}
+    <!-- Render Video Background -->
+    <div class="luxury-hero-video-wrapper">
+      {{ section.settings.instagram_embed }}
+    </div>
+  {%- else -%}
+    <!-- Render Image Fallback -->
+    {%- assign fallback_img = section.settings.fallback_asset_name | append: '.jpg' -%}
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'luxury-hero-bg', preload: true, fetchpriority: 'high' | replace: 'class="', 'class="luxury-hero-' | append: section.id | append: '__bg ' }}
+    {%- else -%}
+      <img src="{{ fallback_img | asset_url }}" class="luxury-hero-{{ section.id }}__bg" alt="Hero Background" fetchpriority="high" preload="true">
+    {%- endif -%}
+  {%- endif -%}
+
+  <div class="luxury-hero-{{ section.id }}__overlay"></div>
+
+  <div class="hero-content">
+    <h1>{{ section.settings.heading }}</h1>
+    <p>{{ section.settings.subtext }}</p>
+    {%- if section.settings.button_text != blank -%}
+      <a href="{{ section.settings.button_link | default: '#' }}" class="button button--primary luxury-btn" style="margin-top: 2rem;">
+        {{ section.settings.button_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Luxury Cinematic Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video Background"
+    },
+    {
+      "type": "html",
+      "id": "instagram_embed",
+      "label": "Instagram Reel Embed Code",
+      "info": "Paste the embed code from an Instagram Reel here to use it as a silent, zoomed-in video canvas."
+    },
+    {
+      "type": "header",
+      "content": "Image Fallback"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image",
+      "info": "Upload a high-res image. This will show if no video is provided."
+    },
+    {
+      "type": "text",
+      "id": "fallback_asset_name",
+      "label": "Default Asset Name (no extension)",
+      "default": "IMG_4976"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Timeless Luxury"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtitle",
+      "default": "Crafted For The Modern Maharani"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Explore Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxury Cinematic Hero"
+    }
+  ]
+}
+{% endschema %}

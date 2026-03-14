@@ -1,0 +1,140 @@
+{%- style -%}
+  .signature-collections {
+    width: 100%;
+    background-color: var(--color-background);
+    margin-top: -1px; /* seamless if needed */
+  }
+  .collections-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  @media screen and (min-width: 750px) {
+    .collections-wrapper {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .collection-card {
+    position: relative;
+    overflow: hidden;
+    height: 85vh; /* Very tall editorial panels */
+    min-height: 600px;
+    display: flex;
+  }
+  .collection-card a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+  }
+  .collection-card img {
+    /* Set to absolute cover to fill the div perfectly */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1;
+  }
+  .collection-card:hover img {
+    transform: scale(1.06);
+  }
+  /* Gradient overlay so the text is always legible */
+  .collection-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .collection-card h2 {
+    position: absolute;
+    bottom: 5rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-luxury-heading) !important;
+    font-size: clamp(3rem, 5vw, 5rem);
+    color: #fff;
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    z-index: 3;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+    transition: color 0.4s ease, transform 0.4s ease;
+  }
+  
+  .collection-card:hover h2 {
+    color: var(--gold);
+    transform: translateY(-8px);
+  }
+{%- endstyle -%}
+
+<section class="signature-collections">
+  <div class="collections-wrapper">
+    {% for block in section.blocks %}
+      <div class="collection-card" {{ block.shopify_attributes }}>
+        <a href="{{ block.settings.collection.url | default: '#' }}">
+          {%- assign fallback_img = block.settings.fallback_asset_name | append: '.jpg' -%}
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 1500 | image_tag: alt: block.settings.title, loading: 'lazy' }}
+          {% elsif block.settings.fallback_asset_name != blank %}
+            <img src="{{ fallback_img | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+          {% endif %}
+          <div class="collection-overlay"></div>
+          <h2>{{ block.settings.title }}</h2>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Signature Collections",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Collection Title",
+          "default": "Bridal Couture"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Collection Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback_asset_name",
+          "label": "Default Asset Name (no extension)",
+          "default": "beige_model_1"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Signature Collections"
+    }
+  ]
+}
+{% endschema %}

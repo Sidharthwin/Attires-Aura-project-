@@ -1,0 +1,121 @@
+<style>
+  .luxury-gallery {
+    padding: 4rem 0 8rem;
+    background-color: rgb(var(--color-background));
+  }
+  .luxury-gallery__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .luxury-gallery__header h2 {
+    font-family: var(--font-luxury-heading) !important;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin: 0;
+    font-weight: 500;
+  }
+  .luxury-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .luxury-gallery__item {
+    position: relative;
+    overflow: hidden;
+    height: 60vh;
+    min-height: 400px;
+  }
+  /* Make the middle image slightly taller/offset for an editorial masonry look */
+  .luxury-gallery__item:nth-child(2) {
+    transform: translateY(-3rem);
+    height: calc(60vh + 3rem);
+  }
+  .luxury-gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .luxury-gallery__item:hover img {
+    transform: scale(1.05);
+  }
+  @media screen and (max-width: 749px) {
+    .luxury-gallery__grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .luxury-gallery__item {
+      height: 50vh;
+    }
+    .luxury-gallery__item:nth-child(2) {
+      transform: none;
+      height: 50vh;
+    }
+  }
+</style>
+
+<div class="luxury-gallery page-width">
+  <div class="luxury-gallery__header scroll-trigger animate--fade-in">
+    <h2>{{ section.settings.heading }}</h2>
+  </div>
+  
+  <div class="luxury-gallery__grid">
+    {%- for block in section.blocks -%}
+      <div class="luxury-gallery__item scroll-trigger animate--slide-in" style="animation-delay: {{ forloop.index | times: 100 }}ms;">
+        {%- assign fallback_img = block.settings.fallback_asset_name | append: '.jpg' -%}
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 33vw, 100vw' }}
+        {%- else -%}
+          <img src="{{ fallback_img | asset_url }}" alt="Gallery Image" loading="lazy">
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Luxury Gallery",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Floral Muse"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Gallery Image",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (Overrides Default)"
+        },
+        {
+          "type": "text",
+          "id": "fallback_asset_name",
+          "label": "Default Asset Name (no extension)",
+          "default": "IMG_4978"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxury Gallery",
+      "blocks": [
+        { "type": "image", "settings": { "fallback_asset_name": "IMG_4978" } },
+        { "type": "image", "settings": { "fallback_asset_name": "IMG_4973" } },
+        { "type": "image", "settings": { "fallback_asset_name": "IMG_4974" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
