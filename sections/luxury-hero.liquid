@@ -1,159 +1,220 @@
+{%- liquid
+  assign hero_eyebrow = section.settings.eyebrow | default: 'Attires Aura Atelier'
+  assign hero_note_label = section.settings.side_label | default: 'Season Note'
+  assign hero_note = section.settings.note | default: 'Limited-run occasion wear, hand-finished with luminous textiles and a quieter sense of glamour.'
+  assign hero_heading = section.settings.heading | default: 'Timeless Luxury'
+  assign hero_subtext = section.settings.subtext | default: 'Crafted for the modern maharani'
+  assign hero_button_text = section.settings.button_text | default: 'Explore Collection'
+  assign hero_button_link = section.settings.button_link | default: '/collections/all'
+  assign fallback_img = section.settings.fallback_asset_name | append: '.jpg'
+-%}
+
 {%- style -%}
-  .luxury-hero-{{ section.id }} {
+  .luxury-hero--{{ section.id }} {
     position: relative;
-    width: 100%;
-    height: 90vh; /* 90% of screen height */
-    min-height: 600px;
+    min-height: min(100vh, 98rem);
+    margin-top: calc(var(--header-height) * -1);
+    padding: calc(var(--header-height) + clamp(8rem, 10vw, 12rem)) clamp(2.2rem, 5vw, 5rem) clamp(4rem, 7vw, 7rem);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    margin-top: -85px; /* Pull up underneath the transparent header */
-    background-color: #000;
+    align-items: flex-end;
+    overflow: clip;
+    background: #120f0d;
+    color: #f8efe1;
   }
 
-  /* The actual background image fallback */
-  .luxury-hero-{{ section.id }}__bg {
+  .luxury-hero--{{ section.id }} .luxury-hero__media,
+  .luxury-hero--{{ section.id }} .luxury-hero__veil,
+  .luxury-hero--{{ section.id }} .luxury-hero__frame {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    /* Subtle slow zoom animation for "alive" feel */
-    animation: luxuryHeroZoom 20s ease-out forwards;
+    inset: 0;
   }
 
-  /* 
-   * Instagram Video Wrapper
-   * Forces the instagram iframe to cover the background and scale UP
-   * to hide borders and UI, creating the "zoomed in face" effect the user wanted.
-   */
-  .luxury-hero-video-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 250vw; /* Massively scale up width */
-    height: 250vw; /* Keep 1:1 aspect ratio on the wrapper for Instagram */
-    min-width: 250vh;
-    min-height: 250vh;
-    transform: translate(-50%, -50%);
-    pointer-events: none; /* Make clicking pass through to the button */
+  .luxury-hero--{{ section.id }} .luxury-hero__media {
     z-index: 0;
-    overflow: hidden;
   }
 
-  /* Target the blockquote and iframe injected by Instagram */
-  .luxury-hero-video-wrapper blockquote,
-  .luxury-hero-video-wrapper iframe {
+  .luxury-hero--{{ section.id }} .luxury-hero__media-image,
+  .luxury-hero--{{ section.id }} .luxury-hero__embed blockquote,
+  .luxury-hero--{{ section.id }} .luxury-hero__embed iframe {
     width: 100% !important;
     height: 100% !important;
-    max-width: none !important;
-    min-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-    /* Move up slightly to focus on face/top half of reel */
-    transform: translateY(-20%); 
+    object-fit: cover;
+    filter: saturate(0.9) contrast(1.04) brightness(0.78);
   }
 
-  @keyframes luxuryHeroZoom {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.08); }
-  }
-
-  /* Overlay to make gold text pop */
-  .luxury-hero-{{ section.id }}__overlay {
+  .luxury-hero--{{ section.id }} .luxury-hero__embed {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.6) 0%,
-      rgba(0,0,0,0.5) 50%,
-      rgba(0,0,0,0.7) 100%
-    );
-    z-index: 1;
+    inset: 0;
+    transform: scale(1.16);
     pointer-events: none;
   }
 
-  /* Content Box */
-  .luxury-hero-{{ section.id }} .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 800px;
-    padding: 0 2rem;
-    color: #fff;
-    /* Entrance animation */
-    animation: luxuryHeroFadeUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    opacity: 0;
-    transform: translateY(30px);
+  .luxury-hero--{{ section.id }} .luxury-hero__veil {
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgba(9, 7, 6, 0.82) 0%, rgba(9, 7, 6, 0.55) 42%, rgba(9, 7, 6, 0.28) 100%),
+      linear-gradient(180deg, rgba(9, 7, 6, 0.22) 0%, rgba(9, 7, 6, 0) 32%, rgba(9, 7, 6, 0.72) 100%);
   }
 
-  @keyframes luxuryHeroFadeUp {
-    100% {
-      opacity: 1;
-      transform: translateY(0);
+  .luxury-hero--{{ section.id }} .luxury-hero__frame {
+    inset: clamp(1.8rem, 3vw, 3rem);
+    border: 1px solid rgba(248, 239, 225, 0.18);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .luxury-hero--{{ section.id }} .luxury-hero__layout {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(26rem, 0.42fr);
+    gap: clamp(2.4rem, 5vw, 6rem);
+    align-items: end;
+    width: min(132rem, 100%);
+    margin: 0 auto;
+  }
+
+  .luxury-hero--{{ section.id }} .luxury-hero__content {
+    max-width: 74rem;
+  }
+
+  .luxury-hero--{{ section.id }} .luxury-hero__eyebrow {
+    margin: 0 0 1.8rem;
+    color: rgba(248, 239, 225, 0.84);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+  }
+
+  .luxury-hero--{{ section.id }} h1 {
+    margin: 0;
+    color: #f8efe1;
+    font-size: clamp(5rem, 10vw, 10.8rem);
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .luxury-hero--{{ section.id }} .luxury-hero__subtext {
+    max-width: 44rem;
+    margin: 2.4rem 0 3rem;
+    color: rgba(248, 239, 225, 0.86);
+    font-size: 1.35rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .luxury-hero--{{ section.id }} .luxury-hero__aside {
+    border-left: 1px solid rgba(248, 239, 225, 0.16);
+    padding-left: clamp(1.8rem, 3vw, 2.8rem);
+    max-width: 31rem;
+  }
+
+  .luxury-hero--{{ section.id }} .luxury-hero__aside-label {
+    margin: 0 0 1.2rem;
+    color: rgba(248, 239, 225, 0.72);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .luxury-hero--{{ section.id }} .luxury-hero__aside p:last-child {
+    margin: 0;
+    color: rgba(248, 239, 225, 0.82);
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+
+  @media screen and (max-width: 989px) {
+    .luxury-hero--{{ section.id }} .luxury-hero__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .luxury-hero--{{ section.id }} .luxury-hero__aside {
+      max-width: 44rem;
+      border-top: 1px solid rgba(248, 239, 225, 0.16);
+      border-left: 0;
+      padding-top: 1.8rem;
+      padding-left: 0;
     }
   }
 
-  .luxury-hero-{{ section.id }} h1 {
-    font-family: var(--font-luxury-heading) !important;
-    font-size: clamp(3.5rem, 6vw, 6.5rem);
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    text-shadow: 0 4px 40px rgba(0,0,0,1);
-    /* Solid gold text for maximum readability */
-    color: var(--gold) !important;
-    background: none !important;
-    -webkit-text-fill-color: initial !important;
-  }
+  @media screen and (max-width: 749px) {
+    .luxury-hero--{{ section.id }} {
+      min-height: 78rem;
+      padding: calc(var(--header-height) + 7rem) 1.8rem 3.2rem;
+    }
 
-  .luxury-hero-{{ section.id }} p {
-    font-family: var(--font-luxury-body) !important;
-    font-size: 1.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: #ffffff !important;
-    margin-bottom: 3rem;
-    text-shadow: 0 2px 20px rgba(0,0,0,1);
+    .luxury-hero--{{ section.id }} .luxury-hero__frame {
+      inset: 1.4rem;
+    }
+
+    .luxury-hero--{{ section.id }} .luxury-hero__eyebrow {
+      margin-bottom: 1.2rem;
+      font-size: 0.88rem;
+      letter-spacing: 0.22em;
+    }
+
+    .luxury-hero--{{ section.id }} .luxury-hero__subtext {
+      margin: 1.8rem 0 2.4rem;
+      font-size: 1.05rem;
+      letter-spacing: 0.12em;
+    }
   }
 {%- endstyle -%}
 
-<section class="luxury-hero-{{ section.id }}">
-  
-  {%- if section.settings.instagram_embed != blank -%}
-    <!-- Render Video Background -->
-    <div class="luxury-hero-video-wrapper">
-      {{ section.settings.instagram_embed }}
-    </div>
-  {%- else -%}
-    <!-- Render Image Fallback -->
-    {%- assign fallback_img = section.settings.fallback_asset_name | append: '.jpg' -%}
-    {%- if section.settings.image != blank -%}
-      {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'luxury-hero-bg', preload: true, fetchpriority: 'high' | replace: 'class="', 'class="luxury-hero-' | append: section.id | append: '__bg ' }}
+<section class="luxury-hero luxury-hero--{{ section.id }}">
+  <div class="luxury-hero__media" aria-hidden="true">
+    {%- if section.settings.instagram_embed != blank -%}
+      <div class="luxury-hero__embed">
+        {{ section.settings.instagram_embed }}
+      </div>
+    {%- elsif section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'luxury-hero__media-image',
+          widths: '900, 1200, 1600, 2000, 2400',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: hero_heading
+      }}
     {%- else -%}
-      <img src="{{ fallback_img | asset_url }}" class="luxury-hero-{{ section.id }}__bg" alt="Hero Background" fetchpriority="high" preload="true">
+      <img
+        src="{{ fallback_img | asset_url }}"
+        alt="{{ hero_heading | escape }}"
+        class="luxury-hero__media-image"
+        loading="eager"
+        fetchpriority="high"
+      >
     {%- endif -%}
-  {%- endif -%}
+  </div>
 
-  <div class="luxury-hero-{{ section.id }}__overlay"></div>
+  <div class="luxury-hero__veil"></div>
+  <div class="luxury-hero__frame" aria-hidden="true"></div>
 
-  <div class="hero-content">
-    <h1>{{ section.settings.heading }}</h1>
-    <p>{{ section.settings.subtext }}</p>
-    {%- if section.settings.button_text != blank -%}
-      <a href="{{ section.settings.button_link | default: '#' }}" class="button button--primary luxury-btn" style="margin-top: 2rem;">
-        {{ section.settings.button_text }}
-      </a>
-    {%- endif -%}
+  <div class="luxury-hero__layout">
+    <div class="luxury-hero__content scroll-trigger animate--fade-in">
+      <p class="luxury-hero__eyebrow">{{ hero_eyebrow }}</p>
+      <h1>{{ hero_heading }}</h1>
+      <p class="luxury-hero__subtext">{{ hero_subtext }}</p>
+      {%- if hero_button_text != blank -%}
+        <a href="{{ hero_button_link }}" class="button luxury-btn">
+          {{ hero_button_text }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <aside class="luxury-hero__aside scroll-trigger animate--slide-in">
+      <p class="luxury-hero__aside-label">{{ hero_note_label }}</p>
+      <p>{{ hero_note }}</p>
+    </aside>
   </div>
 </section>
 
@@ -205,9 +266,27 @@
     },
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Attires Aura Atelier"
+    },
+    {
+      "type": "text",
       "id": "button_text",
       "label": "Button Text",
       "default": "Explore Collection"
+    },
+    {
+      "type": "text",
+      "id": "side_label",
+      "label": "Side Label",
+      "default": "Season Note"
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Side Note",
+      "default": "Limited-run occasion wear, hand-finished with luminous textiles and a quieter sense of glamour."
     },
     {
       "type": "url",
