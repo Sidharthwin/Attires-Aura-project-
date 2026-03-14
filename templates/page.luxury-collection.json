@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "header-marquee": {
+      "type": "luxury-marquee",
+      "settings": {
+        "text": "New Season Arrivals ✦ Hand-Finished Couture ✦ Limited Edition Edit",
+        "bg_color": "#0a0a0a",
+        "text_color": "#C9A84C",
+        "font_size": 18,
+        "letter_spacing": 0.2
+      }
+    },
+    "main": {
+      "type": "luxury-product-grid",
+      "settings": {
+        "eyebrow": "Collection",
+        "heading": "Luxury Edit",
+        "subheading": "Hand-picked pieces from our newest collection.",
+        "products_to_show": 12,
+        "columns_desktop": 4,
+        "show_view_all": false,
+        "image_ratio": "portrait",
+        "show_secondary_image": true,
+        "collection": "all"
+      }
+    }
+  },
+  "order": [
+    "header-marquee",
+    "main"
+  ]
+}
