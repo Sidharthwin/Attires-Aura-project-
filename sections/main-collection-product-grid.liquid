@@ -153,9 +153,9 @@
             </div>
 
             {%- comment -%} LUXURY PHOTOGRAPHIC FALLBACK FOR ZERO-PRODUCT STATE {%- endcomment -%}
-            <div class="fallback-grid-container" style="margin-top: 5rem; width: 100%;">
-               <ul class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop">
-                 {%- for i in (1..8) -%}
+            <div class="fallback-grid-container" style="margin-top: 6rem; width: 100%;">
+               <ul class="grid product-grid grid--2-col-tablet-down grid--3-col-desktop">
+                 {%- for i in (1..6) -%}
                    {%- liquid
                      assign image_index = forloop.index | modulo: 5
                      if image_index == 0
@@ -179,16 +179,16 @@
                    <li class="grid__item" style="min-width: 0;">
                       <div class="card-wrapper" style="height: 100%; display: block;">
                         <div class="card card--standard card--media" style="height: 100%; position: relative;">
-                          {%- comment -%} FORCE ASPECT RATIO CONTAINER {%- endcomment -%}
-                          <div class="card__inner" style="position: relative; display: block; width: 100%; border-radius: 12px; overflow: hidden; background: #fff; border: 1px solid rgba(0,0,0,0.05);">
-                            <div class="card__media" style="width: 100%; position: relative; padding-bottom: 130%;">
+                          {%- comment -%} FORCE ASPECT RATIO CONTAINER - INCREASED TO 140% FOR EDITORIAL LOOK {%- endcomment -%}
+                          <div class="card__inner" style="position: relative; display: block; width: 100%; border-radius: 12px; overflow: hidden; background: #fff; border: 1px solid rgba(168, 130, 47, 0.1);">
+                            <div class="card__media" style="width: 100%; position: relative; padding-bottom: 140%;">
                               <div class="media" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
                                 <img src="{{ asset_name | asset_url }}" 
                                      alt="{{ prod_title }}" 
                                      loading="lazy" 
-                                     width="800" 
-                                     height="1040"
-                                     style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                     width="1000" 
+                                     height="1400"
+                                     style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);">
                               </div>
                             </div>
                             <div class="card-luxury-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;">
