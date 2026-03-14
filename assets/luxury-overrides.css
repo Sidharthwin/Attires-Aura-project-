@@ -623,4 +623,16 @@ hr {
   border-top: 1px solid rgba(201, 168, 76, 0.2) !important;
 }
 
+/* ── 5. CINEMATIC SCROLL ANIMATIONS ────────────────────────── */
+.luxury-animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.luxury-animate-on-scroll.luxury-in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ── END OF LUXURY OVERRIDES ─────────────────────────────── */

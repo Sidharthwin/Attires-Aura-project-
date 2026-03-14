@@ -376,5 +376,28 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <!-- LUXURY SCROLL ANIMATIONS OBSERVER -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('luxury-in-view');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px 0px 0px', threshold: 0.05 });
+
+        // Target all sections inside MainContent, skipping the first one (Hero) so it loads fast
+        const luxurySections = document.querySelectorAll('#MainContent .shopify-section');
+        luxurySections.forEach((section, index) => {
+          if (index > 0) {
+             section.classList.add('luxury-animate-on-scroll');
+             observer.observe(section);
+          }
+        });
+      });
+    </script>
   </body>
 </html>

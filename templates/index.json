@@ -105,10 +105,26 @@
       ],
       "name": "Signature Collections",
       "settings": {}
+    },
+    "luxury_marquee_1": {
+      "type": "luxury-marquee",
+      "settings": {
+        "text": "Meticulously Handcrafted For The Modern Maharani",
+        "bg_color": "#0a0a0a",
+        "text_color": "#C9A84C",
+        "font_size": 22,
+        "font_size_mobile": 16,
+        "letter_spacing": 0.2,
+        "animation_speed": 35,
+        "padding_vertical": 20,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
     }
   },
   "order": [
     "16499881859635e985",
+    "luxury_marquee_1",
     "signature_collections_g3bBBX",
     "luxury_editorial_1",
     "luxury_gallery_1",
