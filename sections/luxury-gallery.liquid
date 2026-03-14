@@ -1,78 +1,183 @@
+{%- liquid
+  assign gallery_eyebrow = section.settings.eyebrow | default: 'Editorial Detail'
+  assign gallery_heading = section.settings.heading | default: 'The Floral Muse'
+  assign gallery_subtext = section.settings.subtext | default: 'A study in texture, movement, and hand-finished detail.'
+-%}
+
 <style>
-  .luxury-gallery {
-    padding: 4rem 0 8rem;
-    background-color: rgb(var(--color-background));
+  .luxury-gallery--{{ section.id }} {
+    padding: clamp(6rem, 9vw, 10rem) 0 clamp(8rem, 10vw, 11rem);
   }
-  .luxury-gallery__header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-  .luxury-gallery__header h2 {
-    font-family: var(--font-luxury-heading) !important;
-    font-size: clamp(2.5rem, 4vw, 4rem);
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    margin: 0;
-    font-weight: 500;
-  }
-  .luxury-gallery__grid {
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__intro {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 0.6fr);
+    gap: 2rem 4rem;
+    align-items: end;
+    margin-bottom: clamp(3rem, 5vw, 4.8rem);
   }
-  .luxury-gallery__item {
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__eyebrow {
+    margin: 0 0 1rem;
+    color: var(--luxury-gold-dark);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .luxury-gallery--{{ section.id }} h2 {
+    margin: 0;
+    color: var(--luxury-ink);
+    font-size: clamp(3.6rem, 5vw, 5.8rem);
+    line-height: 0.96;
+    text-transform: uppercase;
+  }
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__intro-copy {
+    margin: 0;
+    color: var(--luxury-ink-soft);
+    font-size: 1.14rem;
+    line-height: 1.9;
+  }
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__grid {
+    display: grid;
+    grid-template-columns: 1.04fr 0.82fr 0.94fr;
+    gap: 1.6rem;
+    align-items: end;
+  }
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__item {
     position: relative;
     overflow: hidden;
-    height: 60vh;
-    min-height: 400px;
+    background: #dbcdbd;
+    box-shadow: var(--luxury-shadow);
+    aspect-ratio: 0.82;
   }
-  /* Make the middle image slightly taller/offset for an editorial masonry look */
-  .luxury-gallery__item:nth-child(2) {
-    transform: translateY(-3rem);
-    height: calc(60vh + 3rem);
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__item--2 {
+    transform: translateY(4rem);
+    aspect-ratio: 0.72;
   }
-  .luxury-gallery__item img {
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__item--3 {
+    transform: translateY(1.6rem);
+  }
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  .luxury-gallery__item:hover img {
-    transform: scale(1.05);
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__item:hover img {
+    transform: scale(1.04);
   }
-  @media screen and (max-width: 749px) {
-    .luxury-gallery__grid {
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__caption {
+    position: absolute;
+    right: 1.6rem;
+    bottom: 1.6rem;
+    left: 1.6rem;
+    display: flex;
+    gap: 1.4rem;
+    align-items: baseline;
+    padding: 1.2rem 1.4rem;
+    background: rgba(18, 15, 13, 0.72);
+  }
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__count {
+    color: rgba(248, 239, 225, 0.48);
+    font-family: var(--font-luxury-heading);
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .luxury-gallery--{{ section.id }} .luxury-gallery__caption p {
+    margin: 0;
+    color: rgba(248, 239, 225, 0.84);
+    font-size: 0.94rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 989px) {
+    .luxury-gallery--{{ section.id }} .luxury-gallery__intro,
+    .luxury-gallery--{{ section.id }} .luxury-gallery__grid {
       grid-template-columns: 1fr;
-      gap: 1rem;
     }
-    .luxury-gallery__item {
-      height: 50vh;
-    }
-    .luxury-gallery__item:nth-child(2) {
+
+    .luxury-gallery--{{ section.id }} .luxury-gallery__item--2,
+    .luxury-gallery--{{ section.id }} .luxury-gallery__item--3 {
       transform: none;
-      height: 50vh;
+      aspect-ratio: 0.84;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .luxury-gallery--{{ section.id }} {
+      padding: 5rem 0 6rem;
+    }
+
+    .luxury-gallery--{{ section.id }} .luxury-gallery__caption {
+      right: 1rem;
+      bottom: 1rem;
+      left: 1rem;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .luxury-gallery--{{ section.id }} .luxury-gallery__count {
+      font-size: 1.6rem;
+    }
+
+    .luxury-gallery--{{ section.id }} .luxury-gallery__caption p {
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
     }
   }
 </style>
 
-<div class="luxury-gallery page-width">
-  <div class="luxury-gallery__header scroll-trigger animate--fade-in">
-    <h2>{{ section.settings.heading }}</h2>
-  </div>
-  
-  <div class="luxury-gallery__grid">
-    {%- for block in section.blocks -%}
-      <div class="luxury-gallery__item scroll-trigger animate--slide-in" style="animation-delay: {{ forloop.index | times: 100 }}ms;">
-        {%- assign fallback_img = block.settings.fallback_asset_name | append: '.jpg' -%}
-        {%- if block.settings.image != blank -%}
-          {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 33vw, 100vw' }}
-        {%- else -%}
-          <img src="{{ fallback_img | asset_url }}" alt="Gallery Image" loading="lazy">
-        {%- endif -%}
+<section class="luxury-gallery luxury-gallery--{{ section.id }}">
+  <div class="page-width luxury-gallery__shell">
+    <div class="luxury-gallery__intro">
+      <div class="scroll-trigger animate--fade-in">
+        <p class="luxury-gallery__eyebrow">{{ gallery_eyebrow }}</p>
+        <h2>{{ gallery_heading }}</h2>
       </div>
-    {%- endfor -%}
+      <p class="luxury-gallery__intro-copy scroll-trigger animate--fade-in">{{ gallery_subtext }}</p>
+    </div>
+
+    <div class="luxury-gallery__grid">
+      {%- for block in section.blocks -%}
+        {%- assign fallback_img = block.settings.fallback_asset_name | append: '.jpg' -%}
+        {%- assign image_caption = block.settings.caption | default: gallery_heading -%}
+        <article class="luxury-gallery__item luxury-gallery__item--{{ forloop.index }} scroll-trigger animate--slide-in" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 1000
+              | image_tag:
+                loading: 'lazy',
+                widths: '600, 800, 1000',
+                sizes: '(min-width: 990px) 33vw, 100vw',
+                alt: image_caption
+            }}
+          {%- else -%}
+            <img src="{{ fallback_img | asset_url }}" alt="{{ image_caption | escape }}" loading="lazy">
+          {%- endif -%}
+          <div class="luxury-gallery__caption">
+            <span class="luxury-gallery__count">{{ forloop.index | prepend: '0' }}</span>
+            <p>{{ image_caption }}</p>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
@@ -82,9 +187,21 @@
   "settings": [
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Editorial Detail"
+    },
+    {
+      "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "The Floral Muse"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "A study in texture, movement, and hand-finished detail."
     }
   ],
   "blocks": [
@@ -103,6 +220,12 @@
           "id": "fallback_asset_name",
           "label": "Default Asset Name (no extension)",
           "default": "IMG_4978"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Editorial Detail"
         }
       ]
     }

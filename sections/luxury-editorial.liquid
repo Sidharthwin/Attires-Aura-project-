@@ -1,76 +1,188 @@
+{%- liquid
+  assign editorial_eyebrow = section.settings.eyebrow | default: 'House Story'
+  assign editorial_caption = section.settings.image_caption | default: 'Craft, drape, and a quieter kind of drama'
+  assign editorial_note = section.settings.panel_note | default: 'Designed to move between ceremony and celebration with ease.'
+  assign editorial_heading = section.settings.heading | default: 'The Heritage Collection'
+  assign editorial_text = section.settings.text | default: 'A celebration of vibrant hues, modern silhouettes, and timeless elegance designed for the quintessential woman.'
+  assign editorial_button_label = section.settings.button_label | default: 'Discover Collection'
+  assign editorial_button_link = section.settings.button_link | default: '/collections/all'
+  assign fallback_img = section.settings.fallback_asset_name | append: '.jpg'
+-%}
+
 <style>
-  .luxury-editorial {
-    padding: 8rem 0;
-    background-color: rgb(var(--color-background));
+  .luxury-editorial--{{ section.id }} {
+    padding: clamp(7rem, 10vw, 11rem) 0;
   }
-  .luxury-editorial__grid {
-    display: flex;
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr);
+    gap: clamp(3rem, 6vw, 7rem);
     align-items: center;
-    gap: 6rem;
-    flex-wrap: wrap;
   }
-  .luxury-editorial__image-col {
-    flex: 1 1 50%;
-    min-width: 300px;
+
+  .luxury-editorial--{{ section.id }}.luxury-editorial--reverse .luxury-editorial__media {
+    order: 2;
+  }
+
+  .luxury-editorial--{{ section.id }}.luxury-editorial--reverse .luxury-editorial__copy {
+    order: 1;
+  }
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__media {
     position: relative;
   }
-  .luxury-editorial__image-col img {
-    width: 100%;
-    height: auto;
-    object-cover: cover;
-    display: block;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__image-frame {
+    position: absolute;
+    inset: clamp(1.6rem, 3vw, 2.4rem) 0 0 clamp(1.6rem, 3vw, 2.4rem);
+    border: 1px solid rgba(29, 23, 19, 0.12);
+    pointer-events: none;
   }
-  .luxury-editorial__text-col {
-    flex: 1 1 40%;
-    min-width: 300px;
-    padding: 2rem;
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__image-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: #dfcfbd;
+    box-shadow: var(--luxury-shadow);
+  }
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__caption {
+    position: absolute;
+    left: 2rem;
+    bottom: 2rem;
+    margin: 0;
+    max-width: 26rem;
+    padding: 1.2rem 1.6rem;
+    background: rgba(18, 15, 13, 0.76);
+    color: rgba(248, 239, 225, 0.84);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__copy {
+    padding: clamp(2.6rem, 5vw, 4.4rem);
+    border: 1px solid rgba(29, 23, 19, 0.1);
+    background: rgba(255, 251, 245, 0.78);
+    box-shadow: 0 24px 60px rgba(24, 18, 13, 0.08);
     text-align: {{ section.settings.text_alignment }};
   }
-  .luxury-editorial__text-col h2 {
-    font-family: var(--font-luxury-heading) !important;
-    font-size: clamp(3rem, 5vw, 5rem);
-    color: var(--gold);
-    line-height: 1.1;
-    margin-bottom: 2rem;
-    font-weight: 400;
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__eyebrow {
+    margin: 0 0 1.4rem;
+    color: var(--luxury-gold-dark);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
   }
-  .luxury-editorial__text-col p {
-    font-family: var(--font-luxury-body) !important;
-    font-size: 1.2rem;
-    color: rgba(var(--color-foreground), 0.8);
-    line-height: 1.8;
-    margin-bottom: 3rem;
-    letter-spacing: 0.05em;
+
+  .luxury-editorial--{{ section.id }} h2 {
+    margin: 0;
+    color: var(--luxury-ink);
+    font-size: clamp(3.6rem, 5vw, 5.8rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    text-wrap: balance;
   }
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__text {
+    margin: 2rem 0 1.6rem;
+    color: var(--luxury-ink-soft);
+    font-size: 1.16rem;
+    line-height: 1.95;
+  }
+
+  .luxury-editorial--{{ section.id }} .luxury-editorial__note {
+    margin: 0 0 2.6rem;
+    color: rgba(29, 23, 19, 0.72);
+    font-size: 1rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 989px) {
+    .luxury-editorial--{{ section.id }} .luxury-editorial__shell {
+      grid-template-columns: 1fr;
+    }
+
+    .luxury-editorial--{{ section.id }}.luxury-editorial--reverse .luxury-editorial__media,
+    .luxury-editorial--{{ section.id }}.luxury-editorial--reverse .luxury-editorial__copy {
+      order: initial;
+    }
+  }
+
   @media screen and (max-width: 749px) {
-    .luxury-editorial { padding: 4rem 0; }
-    .luxury-editorial__grid { gap: 3rem; }
-    .luxury-editorial__text-col { text-align: center; }
+    .luxury-editorial--{{ section.id }} {
+      padding: 5rem 0;
+    }
+
+    .luxury-editorial--{{ section.id }} .luxury-editorial__copy {
+      padding: 2.2rem 1.8rem;
+      text-align: center;
+    }
+
+    .luxury-editorial--{{ section.id }} .luxury-editorial__caption {
+      right: 1.2rem;
+      left: 1.2rem;
+      bottom: 1.2rem;
+      max-width: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+    }
+
+    .luxury-editorial--{{ section.id }} .luxury-editorial__text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
   }
 </style>
 
-<div class="luxury-editorial page-width">
-  <div class="luxury-editorial__grid" {% if section.settings.image_first == false %}style="flex-direction: row-reverse;"{% endif %}>
-    <div class="luxury-editorial__image-col scroll-trigger animate--slide-in">
-      {%- assign fallback_img = section.settings.fallback_asset_name | append: '.jpg' -%}
-      {%- if section.settings.image != blank -%}
-        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 50vw, 100vw' }}
-      {%- else -%}
-        <img src="{{ fallback_img | asset_url }}" alt="{{ section.settings.heading }}" loading="lazy">
-      {%- endif -%}
+<section class="luxury-editorial luxury-editorial--{{ section.id }}{% unless section.settings.image_first %} luxury-editorial--reverse{% endunless %}">
+  <div class="page-width luxury-editorial__shell">
+    <div class="luxury-editorial__media scroll-trigger animate--slide-in">
+      <div class="luxury-editorial__image-frame" aria-hidden="true"></div>
+      <div class="luxury-editorial__image-wrap">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 1600
+            | image_tag:
+              loading: 'lazy',
+              widths: '750, 1000, 1400, 1600',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              alt: editorial_heading
+          }}
+        {%- else -%}
+          <img src="{{ fallback_img | asset_url }}" alt="{{ editorial_heading | escape }}" loading="lazy">
+        {%- endif -%}
+        <p class="luxury-editorial__caption">{{ editorial_caption }}</p>
+      </div>
     </div>
-    <div class="luxury-editorial__text-col scroll-trigger animate--fade-in">
-      <h2>{{ section.settings.heading }}</h2>
-      <p>{{ section.settings.text }}</p>
-      {%- if section.settings.button_label != blank -%}
-        <a href="{{ section.settings.button_link | default: '#' }}" class="button button--primary luxury-btn">
-          {{ section.settings.button_label }}
+
+    <div class="luxury-editorial__copy scroll-trigger animate--fade-in">
+      <p class="luxury-editorial__eyebrow">{{ editorial_eyebrow }}</p>
+      <h2>{{ editorial_heading }}</h2>
+      <div class="luxury-editorial__text">{{ editorial_text | newline_to_br }}</div>
+      <p class="luxury-editorial__note">{{ editorial_note }}</p>
+      {%- if editorial_button_label != blank -%}
+        <a href="{{ editorial_button_link }}" class="button button--secondary">
+          {{ editorial_button_label }}
         </a>
       {%- endif -%}
     </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
@@ -106,6 +218,24 @@
       "id": "text",
       "label": "Text",
       "default": "A celebration of vibrant hues, modern silhouettes, and timeless elegance designed for the quintessential woman."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "House Story"
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Image Caption",
+      "default": "Craft, drape, and a quieter kind of drama"
+    },
+    {
+      "type": "text",
+      "id": "panel_note",
+      "label": "Panel Note",
+      "default": "Designed to move between ceremony and celebration with ease."
     },
     {
       "type": "text",
