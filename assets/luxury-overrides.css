@@ -210,10 +210,14 @@ a:hover {
 }
 
 .header__inline-menu {
-  width: 100%;
+  flex-grow: 1;
+  display: flex;
   justify-content: center;
-  border-top: 1px solid rgba(248, 239, 225, 0.12);
-  padding-top: 0.4rem;
+  padding-top: 0;
+}
+
+.header--middle-left .header__inline-menu {
+  margin-left: 2rem;
 }
 
 .section-header.scrolled-past-header .header__inline-menu,
@@ -225,34 +229,102 @@ a:hover {
   gap: clamp(1.2rem, 2vw, 2.6rem);
 }
 
+.header__menu-item span,
+.header__active-menu-item {
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  transition: color 0.3s ease;
+}
+
 .header__menu-item {
   position: relative;
+  padding: 0.8rem 1.2rem;
 }
 
 .header__menu-item::after {
   content: '';
   position: absolute;
-  bottom: 0.2rem;
-  left: 0;
+  bottom: 0px;
+  left: 50%;
   width: 0;
   height: 1px;
-  background: currentColor;
-  opacity: 0.55;
-  transition: width 0.3s ease;
+  background: var(--luxury-gold);
+  transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), left 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .header__menu-item:hover::after,
-details[open] > .header__menu-item::after,
-a[aria-current='page'].header__menu-item::after {
+.header__active-menu-item::after {
   width: 100%;
+  left: 0;
 }
 
-.header__menu-item span,
-.header__active-menu-item {
-  font-size: 0.98rem !important;
-  font-weight: 500 !important;
-  letter-spacing: var(--letter-spacing-caps) !important;
-  text-transform: uppercase !important;
+/* Product Card View Details Refinements */
+.card-luxury-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.card:hover .card-luxury-overlay {
+  opacity: 1;
+}
+
+.card-luxury-overlay .button {
+  pointer-events: auto;
+  transform: translateY(10px);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background: var(--luxury-ink);
+  color: white;
+  border: 1px solid var(--luxury-gold);
+}
+
+.card:hover .card-luxury-overlay .button {
+  transform: translateY(0);
+}
+
+.luxury-btn--small {
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  min-width: unset;
+}
+
+/* Mobile Drawer Luxury Styling */
+.menu-drawer {
+  background-color: #FAF9F6;
+  border-left: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.menu-drawer__menu-item {
+  font-family: var(--font-luxury-body);
+  font-size: 1.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--luxury-ink);
+  padding: 2.5rem 3rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.menu-drawer__menu-item:hover {
+  color: var(--luxury-gold);
+  background-color: rgba(201, 168, 76, 0.02);
+}
+
+.menu-drawer__close-button {
+  font-family: var(--font-luxury-heading);
+  letter-spacing: 0.2rem;
+  font-style: italic;
 }
 
 .template-index .section-header:not(.scrolled-past-header) .header__menu-item,
