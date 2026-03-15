@@ -108,13 +108,60 @@
         {%- endfor -%}
       {%- else -%}
         {%- for i in (1..products_to_show) -%}
+          {%- liquid
+            assign image_index = forloop.index | modulo: 5
+            if image_index == 0
+              assign image_index = 5
+            endif
+            assign asset_name = 'arrival_' | append: image_index | append: '.jpg'
+            
+            case image_index
+              when 1
+                assign title = "Embroidered Sun-Drenched Lehenga"
+              when 2
+                assign title = "Fuchsia Royale Heritage Saree"
+              when 3
+                assign title = "Gilded Couture Peplum Set"
+              when 4
+                assign title = "Ivory Serenity Bridal Couture"
+              when 5
+                assign title = "Celestial Pearl Bridal Ensemble"
+            endcase
+          -%}
           <li class="grid__item scroll-trigger animate--slide-in">
-            {%- assign placeholder_image = 'product-apparel-' | append: forloop.rindex -%}
-            {% render 'card-product',
-              show_vendor: section.settings.show_vendor,
-              media_aspect_ratio: section.settings.image_ratio,
-              placeholder_image: placeholder_image
-            %}
+             <div class="card-wrapper underline-links-hover">
+               <div class="card card--standard card--media" style="--ratio-percent: 125%;">
+                 <div class="card__inner">
+                   <div class="card__media">
+                     <div class="media media--transparent media--hover-effect">
+                       <img src="{{ asset_name | asset_url }}" alt="{{ title }}" loading="lazy" width="800" height="1000">
+                     </div>
+                   </div>
+                   <div class="card-luxury-overlay">
+                     <div class="card-luxury-actions">
+                       <a href="#" class="button luxury-btn luxury-btn--small">View Details</a>
+                       <button type="button" class="button luxury-btn luxury-btn--small luxury-btn--outline">Add To Cart</button>
+                     </div>
+                     <div class="card-luxury-wishlist-bottom">
+                       <button type="button" class="wishlist-button-minimal">
+                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                       </button>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="card__content">
+                   <div class="card__information">
+                     <span class="luxury-card-vendor">Attires Aura Exclusive</span>
+                     <h3 class="card__heading h5">{{ title }}</h3>
+                     <div class="price">
+                        <div class="price__regular">
+                          <span class="price-item price-item--regular">Rs. 89,999.00 INR</span>
+                        </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
           </li>
         {%- endfor -%}
       {%- endif -%}
