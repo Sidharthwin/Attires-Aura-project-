@@ -202,11 +202,14 @@ a:hover {
   color: var(--luxury-cream);
 }
 
+/* Scrolled past header - Logo visibility fix */
 .section-header.scrolled-past-header .header__heading-link span,
 .section-header.scrolled-past-header .header__heading-link .h2,
 .section-header.shopify-section-header-sticky .header__heading-link span,
 .section-header.shopify-section-header-sticky .header__heading-link .h2 {
-  color: var(--luxury-ink);
+  color: var(--luxury-ink) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .header__inline-menu {
@@ -635,32 +638,18 @@ a:hover {
   font-style: italic;
 }
 
-.template-index .section-header:not(.scrolled-past-header) .header__menu-item,
-.template-index .section-header:not(.scrolled-past-header) .header__menu-item span {
-  color: rgba(248, 239, 225, 0.9) !important;
+/* Ensure header items are consistently light on the dark header across all pages */
+.section-header:not(.scrolled-past-header) .header__menu-item,
+.section-header:not(.scrolled-past-header) .header__menu-item span,
+.section-header:not(.scrolled-past-header) .header__icon,
+.section-header:not(.scrolled-past-header) .header__icon .svg-wrapper {
+  color: var(--luxury-cream) !important;
 }
 
 .section-header.scrolled-past-header .header__menu-item,
 .section-header.scrolled-past-header .header__menu-item span,
 .section-header.shopify-section-header-sticky .header__menu-item,
-.section-header.shopify-section-header-sticky .header__menu-item span {
-  color: var(--luxury-ink) !important;
-}
-
-.header__menu-item:hover span,
-.header__active-menu-item {
-  color: var(--luxury-gold) !important;
-}
-
-.header__icons {
-  gap: 1.2rem;
-}
-
-.template-index .section-header:not(.scrolled-past-header) .header__icon,
-.template-index .section-header:not(.scrolled-past-header) .header__icon .svg-wrapper {
-  color: var(--luxury-cream) !important;
-}
-
+.section-header.shopify-section-header-sticky .header__menu-item span,
 .section-header.scrolled-past-header .header__icon,
 .section-header.scrolled-past-header .header__icon .svg-wrapper,
 .section-header.shopify-section-header-sticky .header__icon,
